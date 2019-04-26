@@ -9,6 +9,7 @@ openssl pkcs12 -export -out ijooz.pfx -inkey ijooz.key -in ijooz.crt -certfile i
 -3.Copy ijooz.cert to resource API which need to be protected by jwt token
 
 
+Get Token
 
 POST /connect/token HTTP/1.1
 Host: localhost:7001
@@ -18,7 +19,7 @@ Postman-Token: ba9d249f-261a-a841-64ed-6e06134fbfe8
 
 grant_type=password&client_id=ijoozClientId&client_secret=ijoozClientIdSecret&scope=offline_access&username=zouxuan&password=zouxuan
 
---Replace refresh_token
+--Get Token with refresh token , Replace refresh_token in below request
 
 POST /connect/token HTTP/1.1
 Host: localhost:7001

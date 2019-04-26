@@ -8,21 +8,8 @@ namespace iJoozAuth.API.Service
     {
         public static IEnumerable<Client> GetClients()
         {
-// client credentials, list of clients
             return new List<Client>
             {
-                new Client
-                {
-                    ClientId = "client",
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-
-// Client secrets
-                    ClientSecrets =
-                    {
-                        new Secret("secret".Sha256())
-                    },
-                    AllowedScopes = {"api1"}
-                },
                 new Client
                 {
                     ClientId = "ijoozClientId",
@@ -33,7 +20,10 @@ namespace iJoozAuth.API.Service
                     ClientSecrets = new List<Secret> {new Secret("ijoozClientIdSecret".Sha256())},
                     AllowedScopes =
                     {
-                        IdentityServerConstants.StandardScopes.OpenId
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
                     }
                 }
             };

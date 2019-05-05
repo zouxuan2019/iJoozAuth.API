@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using iJoozAuth.API.Models;
 using Microsoft.AspNetCore.Identity;
@@ -12,11 +8,13 @@ namespace iJoozAuth.API.Persistence.Contexts
 {
     public class UserRepository : IUserRepository
     {
-        protected readonly AppDbContext _context;
+        private readonly AppDbContext _context;
+        private readonly UserManager<ApplicationUser> _usermanager;
 
-        public UserRepository(AppDbContext context)
+        public UserRepository(UserManager<ApplicationUser> usermanager, AppDbContext context)
         {
             _context = context;
+            _usermanager = usermanager;
         }
 
         public async Task<bool> ValidateCredentialsAsync(string username, string password)
@@ -26,11 +24,11 @@ namespace iJoozAuth.API.Persistence.Contexts
             {
                 return false;
             }
-            var passwordHash = password;
-            return user.PasswordHash.Equals(passwordHash);
+
+            return await _usermanager.CheckPasswordAsync(user, password);
         }
 
-        public async Task<User> FindByUsernameAsync(string username)
+        public async Task<ApplicationUser> FindByUsernameAsync(string username)
         {
             return await _context.Users.SingleOrDefaultAsync(x =>
                 x.UserName.Equals(username, StringComparison.OrdinalIgnoreCase));

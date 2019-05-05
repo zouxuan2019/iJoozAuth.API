@@ -7,6 +7,6 @@ namespace iJoozAuth.API.Persistence.Contexts
     {
         Task<bool> ValidateCredentialsAsync(string username, string password);
 
-        Task<User> FindByUsernameAsync(string username);
+        Task<ApplicationUser> FindByUsernameAsync(string username);
     }
 }

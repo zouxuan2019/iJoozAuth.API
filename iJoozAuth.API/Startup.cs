@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using iJoozAuth.API.Models;
 using iJoozAuth.API.Persistence.Contexts;
 using iJoozAuth.API.Service;
 using iJoozAuth.API.UserServices;
@@ -40,6 +41,9 @@ namespace iJoozAuth.API
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryApiResources(Config.GetApis())
                 .AddCustomUserStore();
+
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<AppDbContext>();
         }
 
         private X509Certificate2 GetSigningCredential()

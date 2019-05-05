@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using IdentityServer4;
 using IdentityServer4.Models;
 
@@ -13,21 +14,32 @@ namespace iJoozAuth.API.Service
                 new Client
                 {
                     ClientId = "ijoozClientId",
-
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     AccessTokenType = AccessTokenType.Jwt,
                     AllowOfflineAccess = true,
                     ClientSecrets = new List<Secret> {new Secret("ijoozClientIdSecret".Sha256())},
                     AllowedScopes =
                     {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email,
                         IdentityServerConstants.StandardScopes.OfflineAccess,
+                        SupportedApis.EWallet.ToString(),
+                        SupportedApis.QRCode.ToString()
+                    }
+                },
+                new Client
+                {
+                    ClientId = "thirdParty",
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AccessTokenType = AccessTokenType.Jwt,
+                    ClientSecrets = new List<Secret> {new Secret("thirdPartySecret".Sha256())},
+                    AllowedScopes =
+                    {
+                        SupportedApis.EWallet.ToString(),
+                        SupportedApis.QRCode.ToString()
                     }
                 }
             };
         }
+
 
         public static IEnumerable<IdentityResource> GetIdentityResources()
         {
@@ -35,8 +47,23 @@ namespace iJoozAuth.API.Service
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResources.Email()
+                new IdentityResources.Email(),
             };
+        }
+
+        public static IEnumerable<ApiResource> GetApis()
+        {
+            return new List<ApiResource>
+            {
+                new ApiResource(SupportedApis.EWallet.ToString(), "Ewallet API"),
+                new ApiResource(SupportedApis.QRCode.ToString(), "QRCode API")
+            };
+        }
+
+        public enum SupportedApis
+        {
+            EWallet,
+            QRCode
         }
     }
 }

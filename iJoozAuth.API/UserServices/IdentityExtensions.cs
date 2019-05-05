@@ -1,4 +1,4 @@
-﻿using iJoozAuth.API.UserServices;
+﻿using iJoozAuth.API.Persistence.Contexts;
 using iJoozAuth.API.Service;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,7 +9,7 @@ namespace iJoozAuth.API.UserServices
     {
         public static IIdentityServerBuilder AddCustomUserStore(this IIdentityServerBuilder builder)
         {
-            builder.Services.AddSingleton<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
             builder.AddProfileService<CustomProfileService>();
             builder.AddResourceOwnerValidator<CustomResourceOwnerPasswordValidator>();
 

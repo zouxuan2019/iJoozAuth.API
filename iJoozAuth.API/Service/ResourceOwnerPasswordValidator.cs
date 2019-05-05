@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using iJoozAuth.API.UserServices;
+using iJoozAuth.API.Persistence.Contexts;
 using IdentityModel;
 using IdentityServer4.Validation;
 
@@ -16,11 +16,11 @@ namespace iJoozAuth.API.Service
 
         public Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-            if (_userRepository.ValidateCredentials(context.UserName, context.Password))
+            if (_userRepository.ValidateCredentialsAsync(context.UserName, context.Password).GetAwaiter().GetResult())
             {
-                var user = _userRepository.FindByUsername(context.UserName);
+                var user = _userRepository.FindByUsernameAsync(context.UserName).GetAwaiter().GetResult();
                 context.Result =
-                    new GrantValidationResult(user.SubjectId, OidcConstants.AuthenticationMethods.Password);
+                    new GrantValidationResult(user.UserName, OidcConstants.AuthenticationMethods.Password);
             }
 
             return Task.FromResult(0);

@@ -6,7 +6,7 @@ openssl req -x509 -newkey rsa:4096 -sha256 -nodes -keyout ijooz.key -out ijooz.c
 
 openssl pkcs12 -export -out ijooz.pfx -inkey ijooz.key -in ijooz.crt -certfile ijooz.crt
 
--3.Copy ijooz.cert to resource API which need to be protected by jwt token
+-3.Set ijooz.cert as signing key in resource API which need to be protected by jwt token
 
 
 # Get User Access Token

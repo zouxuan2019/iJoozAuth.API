@@ -9,15 +9,15 @@ openssl pkcs12 -export -out ijooz.pfx -inkey ijooz.key -in ijooz.crt -certfile i
 -3.Set ijooz.cert as signing key in resource API which need to be protected by jwt token
 
 
-# Get User Access Token
+# Get User Access Token , password is abc&ABC12
 
 POST /connect/token HTTP/1.1
 Host: localhost:7001
 Content-Type: application/x-www-form-urlencoded
 Cache-Control: no-cache
-Postman-Token: ba9d249f-261a-a841-64ed-6e06134fbfe8
+Postman-Token: d0170b0d-4802-456a-f9e8-5057dba2c84c
 
-grant_type=password&client_id=ijoozClientId&client_secret=ijoozClientIdSecret&scope=offline_access&username=zouxuan&password=zouxuan
+grant_type=password&client_id=ijoozClientId&client_secret=ijoozClientIdSecret&scope=offline_access&username=zouxuan1&password=abc%26ABC12
 
 # Get Token with refresh token , Replace refresh_token in below request
 

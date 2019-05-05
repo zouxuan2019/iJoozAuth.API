@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography.X509Certificates;
 using iJoozAuth.API.Service;
 using iJoozAuth.API.UserServices;
@@ -15,7 +16,7 @@ namespace iJoozAuth.API
     {
         private readonly IHostingEnvironment _environment;
 
-        public Startup(IConfiguration configuration,IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
             _environment = env;
@@ -29,7 +30,6 @@ namespace iJoozAuth.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddIdentityServer()
-//                .AddDeveloperSigningCredential()
                 .AddSigningCredential(GetSigningCredential())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())
                 .AddInMemoryClients(Config.GetClients())
@@ -38,10 +38,11 @@ namespace iJoozAuth.API
 
         private X509Certificate2 GetSigningCredential()
         {
-            return new X509Certificate2(Path.Combine(_environment.ContentRootPath, "ijooz.pfx"), "ijooz");
+            byte[] signingKey = Convert.FromBase64String(Environment.GetEnvironmentVariable("SigningKey"));
+            var password = Environment.GetEnvironmentVariable("SigningKeyPassword");
+            return new X509Certificate2(new X509Certificate(signingKey, password));
         }
 
-     
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

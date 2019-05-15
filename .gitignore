@@ -21,6 +21,8 @@ test-results/
 .AppleDouble
 .LSOverride
 
+#application related
+*.log
 # Icon must end with two \r
 Icon
 

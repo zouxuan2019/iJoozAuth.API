@@ -5,6 +5,7 @@ using IdentityServer4.Models;
 using IdentityServer4.Services;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using iJoozAuth.API.Models;
 using iJoozAuth.API.Persistence.Contexts;
 
 namespace iJoozAuth.API.UserServices
@@ -32,8 +33,8 @@ namespace iJoozAuth.API.UserServices
                 context.RequestedClaimTypes,
                 context.Caller);
 
-            var user = await _userRepository.FindByUsernameAsync(context.Subject.GetSubjectId());
-
+            //var user = await _userRepository.FindByUsernameAsync(context.Subject.GetSubjectId());
+            var user = new ApplicationUser {UserName = context.Subject.GetSubjectId(), Email = "abc@ab.com"};
             var claims = new List<Claim>
             {
 //                new Claim("role", "admin"),
@@ -47,8 +48,9 @@ namespace iJoozAuth.API.UserServices
 
         public async Task IsActiveAsync(IsActiveContext context)
         {
-            var user = _userRepository.FindByUsernameAsync(context.Subject.GetSubjectId());
-            context.IsActive = user != null;
+            // var user = _userRepository.FindByUsernameAsync(context.Subject.GetSubjectId());
+            //context.IsActive = user != null;
+            context.IsActive = true;
         }
     }
 }

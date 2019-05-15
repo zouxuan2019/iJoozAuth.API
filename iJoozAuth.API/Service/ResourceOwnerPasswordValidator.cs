@@ -16,12 +16,12 @@ namespace iJoozAuth.API.Service
 
         public Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-            if (_userRepository.ValidateCredentialsAsync(context.UserName, context.Password).GetAwaiter().GetResult())
-            {
-                var user = _userRepository.FindByUsernameAsync(context.UserName).GetAwaiter().GetResult();
+//            if (_userRepository.ValidateCredentialsAsync(context.UserName, context.Password).GetAwaiter().GetResult())
+//            {
+//                var user = _userRepository.FindByUsernameAsync(context.UserName).GetAwaiter().GetResult();
                 context.Result =
-                    new GrantValidationResult(user.UserName, OidcConstants.AuthenticationMethods.Password);
-            }
+                    new GrantValidationResult(context.UserName, OidcConstants.AuthenticationMethods.Password);
+//            }
 
             return Task.FromResult(0);
         }

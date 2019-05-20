@@ -44,6 +44,11 @@ namespace iJoozAuth.API
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddEntityFrameworkStores<AppDbContext>();
+            services.Configure<IISOptions>(iis =>
+            {
+                iis.AuthenticationDisplayName = "Windows";
+                iis.AutomaticAuthentication = false;
+            });
         }
 
         private X509Certificate2 GetSigningCredential()

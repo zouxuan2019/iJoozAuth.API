@@ -22,7 +22,8 @@ namespace iJoozAuth.API.Service
                     {
                         IdentityServerConstants.StandardScopes.OfflineAccess,
                         SupportedApis.EWallet.ToString(),
-                        SupportedApis.QRCode.ToString()
+                        SupportedApis.QRCode.ToString(),
+                    
                     }
                 },
                 new Client
@@ -56,7 +57,8 @@ namespace iJoozAuth.API.Service
             return new List<ApiResource>
             {
                 new ApiResource(SupportedApis.EWallet.ToString(), "Ewallet API"),
-                new ApiResource(SupportedApis.QRCode.ToString(), "QRCode API")
+                new ApiResource(SupportedApis.QRCode.ToString(), "QRCode API"),
+                new ApiResource("test", "test API")
             };
         }
 

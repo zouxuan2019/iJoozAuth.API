@@ -20,9 +20,7 @@ namespace iJoozAuth.API.Service
                     ClientSecrets = new List<Secret> {new Secret("ijoozClientIdSecret".Sha256())},
                     AllowedScopes =
                     {
-                        IdentityServerConstants.StandardScopes.OfflineAccess,
-                        SupportedApis.EWallet.ToString(),
-                        SupportedApis.QRCode.ToString(),
+                        SupportedApis.ijooz.ToString()
                     
                     }
                 },
@@ -34,8 +32,7 @@ namespace iJoozAuth.API.Service
                     ClientSecrets = new List<Secret> {new Secret("thirdPartySecret".Sha256())},
                     AllowedScopes =
                     {
-                        SupportedApis.EWallet.ToString(),
-                        SupportedApis.QRCode.ToString()
+                        SupportedApis.ijooz.ToString()
                     }
                 }
             };
@@ -56,16 +53,14 @@ namespace iJoozAuth.API.Service
         {
             return new List<ApiResource>
             {
-                new ApiResource(SupportedApis.EWallet.ToString(), "Ewallet API"),
-                new ApiResource(SupportedApis.QRCode.ToString(), "QRCode API"),
-                new ApiResource("test", "test API")
+                new ApiResource(SupportedApis.ijooz.ToString(), "IJooz API"),
             };
         }
 
         public enum SupportedApis
         {
-            EWallet,
-            QRCode
+            ijooz
+            
         }
     }
 }

@@ -1,18 +1,13 @@
 ﻿using System;
-using System.IO;
 using System.Security.Cryptography.X509Certificates;
-using iJoozAuth.API.Models;
-using iJoozAuth.API.Persistence.Contexts;
 using iJoozAuth.API.Service;
 using iJoozAuth.API.UserServices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
 
 namespace iJoozAuth.API
 {
@@ -32,8 +27,6 @@ namespace iJoozAuth.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Environment.GetEnvironmentVariable("DbConnectionString")));
 
             services.AddIdentityServer()
                 .AddSigningCredential(GetSigningCredential())
@@ -42,8 +35,6 @@ namespace iJoozAuth.API
                 .AddInMemoryApiResources(Config.GetApis())
                 .AddCustomUserStore();
 
-            services.AddDefaultIdentity<ApplicationUser>()
-                .AddEntityFrameworkStores<AppDbContext>();
             services.Configure<IISOptions>(iis =>
             {
                 iis.AuthenticationDisplayName = "Windows";

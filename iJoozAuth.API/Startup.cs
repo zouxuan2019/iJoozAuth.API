@@ -27,7 +27,8 @@ namespace iJoozAuth.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddSingleton<FacebookService, FacebookService>();
+            services.AddSingleton<JwtTokenGenerator, JwtTokenGenerator>();
             services.AddIdentityServer()
                 .AddSigningCredential(GetSigningCredential())
                 .AddInMemoryIdentityResources(Config.GetIdentityResources())

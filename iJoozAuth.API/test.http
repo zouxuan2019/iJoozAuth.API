@@ -4,7 +4,7 @@
 # * 'gtrp' and 'gtr' create a GET request with or without query parameters;
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
-
+/Users/zouxuan/NusWorkspace/Semester2_Jun_Nov_2019/Practice Project/fv-membership-ui/package.json
 POST https://localhost:5001/api/ApplicationUser/Verify
 Content-Type: application/json
 
@@ -36,4 +36,38 @@ POST https://localhost:7001/connect/token
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=client_credentials&client_id=thirdParty&client_secret=thirdPartySecret&scope=ijooz
+
+
+# Facebook Test
+
+
+GET https://graph.facebook.com/718194675270034?fields=id,name,email&access_token=EAAHPKxjHCQoBAAArOcMEZCkzy9cdwhKhh4XZCaOYpbqhaKyKbAHw0fcc15B0XOtsCMTIGJAt0PikZAw3N7LDBbaJZAM7gAoD68ZByaXns9cIJ2VKBLdbcRRYJeMUFXGYRqVCP66haD1jCjRXTstZCUSVsnM71q8SRRPGHSxZBsVgwZDZD
+Accept: application/json
+
+###
+
+GET https://graph.facebook.com/debug_token?input_token=EAAHPKxjHCQoBAFKYJDXDaekI1U5TQkLPdzMAyGcX7cse4AbqpbvYVZBmvJ0M2CN60utFZAFVpOgwbOZCqIX8StQI8n4NCB6QqnaW0cX2gF9CiSkXCFz5QzAEZAIROVZCJPqMM9P42Mw2N1qn7FMNHZBnIXgX2tWvOnJkCm6a8R3H9MtbD7mV3kgnEGMP5UCWAZD&access_token=EAAHPKxjHCQoBAFKYJDXDaekI1U5TQkLPdzMAyGcX7cse4AbqpbvYVZBmvJ0M2CN60utFZAFVpOgwbOZCqIX8StQI8n4NCB6QqnaW0cX2gF9CiSkXCFz5QzAEZAIROVZCJPqMM9P42Mw2N1qn7FMNHZBnIXgX2tWvOnJkCm6a8R3H9MtbD7mV3kgnEGMP5UCWAZD
+Accept: application/json
+
+###
+
+GET https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=509258982951178&client_secret=d68d437d13419bce77bfccfcb9bd734b&fb_exchange_token=EAAHPKxjHCQoBAC4DphVlLj60CSltZCTy03akZB0y5gR6LNtlbFZCTpKH3zy4JTGr5zH8G5hukOZBocK5o9rXslyRHNDepVlcfTFJZCbhGjX8NNIi2PaIhYMqVpfIGC6et3xdM5aeMRySKjolGDvOSm3ad7PzeSsQw5Hl5gtxCTrxmYwhWybqPSODT1aC8AG8ZD&access_token=EAAHPKxjHCQoBAC4DphVlLj60CSltZCTy03akZB0y5gR6LNtlbFZCTpKH3zy4JTGr5zH8G5hukOZBocK5o9rXslyRHNDepVlcfTFJZCbhGjX8NNIi2PaIhYMqVpfIGC6et3xdM5aeMRySKjolGDvOSm3ad7PzeSsQw5Hl5gtxCTrxmYwhWybqPSODT1aC8AG8ZD"
+Accept: application/json
+
+###
+GET https://graph.facebook.com/debug_token?input_token=EAAHPKxjHCQoBAAArOcMEZCkzy9cdwhKhh4XZCaOYpbqhaKyKbAHw0fcc15B0XOtsCMTIGJAt0PikZAw3N7LDBbaJZAM7gAoD68ZByaXns9cIJ2VKBLdbcRRYJeMUFXGYRqVCP66haD1jCjRXTstZCUSVsnM71q8SRRPGHSxZBsVgwZDZD&access_token=EAAHPKxjHCQoBAAArOcMEZCkzy9cdwhKhh4XZCaOYpbqhaKyKbAHw0fcc15B0XOtsCMTIGJAt0PikZAw3N7LDBbaJZAM7gAoD68ZByaXns9cIJ2VKBLdbcRRYJeMUFXGYRqVCP66haD1jCjRXTstZCUSVsnM71q8SRRPGHSxZBsVgwZDZD
+Accept: application/json
+
+###
+
+POST https://localhost:7001/api/ExchangeToken/jwt
+Content-Type: application/json
+
+{
+  "Source": "Facebook",
+  "Token": "EAAHPKxjHCQoBAAArOcMEZCkzy9cdwhKhh4XZCaOYpbqhaKyKbAHw0fcc15B0XOtsCMTIGJAt0PikZAw3N7LDBbaJZAM7gAoD68ZByaXns9cIJ2VKBLdbcRRYJeMUFXGYRqVCP66haD1jCjRXTstZCUSVsnM71q8SRRPGHSxZBsVgwZDZD"
+}
+
+###
+
 

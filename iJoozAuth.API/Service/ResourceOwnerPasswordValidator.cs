@@ -22,17 +22,20 @@ namespace iJoozAuth.API.Service
             var url = _configuration["UserManagement:Host"] + "/Verify";
             var userInfo = new {userName = context.UserName, password = context.Password};
             
-            using (var client = new HttpClient())
-            {
-                var stringContent =
-                    new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8, "application/json");
-                var httpResponseMessage = client.PostAsync(url, stringContent).GetAwaiter().GetResult();
-                if (httpResponseMessage.Content.ReadAsStringAsync().GetAwaiter().GetResult().Equals("true"))
-                {
-                    context.Result =
-                        new GrantValidationResult(context.UserName, OidcConstants.AuthenticationMethods.Password);
-                }
-            }
+//            using (var client = new HttpClient())
+//            {
+//                var stringContent =
+//                    new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8, "application/json");
+//                var httpResponseMessage = client.PostAsync(url, stringContent).GetAwaiter().GetResult();
+//                if (httpResponseMessage.Content.ReadAsStringAsync().GetAwaiter().GetResult().Equals("true"))
+//                {
+//                    context.Result =
+//                        new GrantValidationResult(context.UserName, OidcConstants.AuthenticationMethods.Password);
+//                }
+//            }
+
+            context.Result =
+                new GrantValidationResult(context.UserName, OidcConstants.AuthenticationMethods.Password);
 
             return Task.FromResult(0);
         }

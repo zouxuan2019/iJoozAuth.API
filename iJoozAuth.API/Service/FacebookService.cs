@@ -51,6 +51,8 @@ namespace iJoozAuth.API.Service
 
             userInfo.expires_at = tokenInfo.data.expires_at;
             userInfo.scopes = tokenInfo.data.scopes;
+            userInfo.scopes.Add(tokenInfo.data.application);
+            userInfo.application = tokenInfo.data.application;
 
             return userInfo;
         }

@@ -13,26 +13,26 @@ namespace iJoozAuth.API.Service
             {
                 new Client
                 {
-                    ClientId = "ijoozClientId",
+                    ClientId = SupportedClients.FvMembershipClientId.ToString(),
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
                     AccessTokenType = AccessTokenType.Jwt,
                     AllowOfflineAccess = true,
-                    ClientSecrets = new List<Secret> {new Secret("ijoozClientIdSecret".Sha256())},
+                    ClientSecrets = new List<Secret> {new Secret("FvMembershipClientSecret".Sha256())},
                     AllowedScopes =
                     {
-                        SupportedApis.ijooz.ToString()
+                        SupportedApis.FvMembership.ToString()
                     
                     }
                 },
                 new Client
                 {
-                    ClientId = "thirdParty",
+                    ClientId = SupportedClients.FvMembershipThirdPartyClientId.ToString(),
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AccessTokenType = AccessTokenType.Jwt,
-                    ClientSecrets = new List<Secret> {new Secret("thirdPartySecret".Sha256())},
+                    ClientSecrets = new List<Secret> {new Secret("FvMembershipThirdPartyClientSecret".Sha256())},
                     AllowedScopes =
                     {
-                        SupportedApis.ijooz.ToString()
+                        SupportedApis.FvMembership.ToString()
                     }
                 }
             };
@@ -53,14 +53,19 @@ namespace iJoozAuth.API.Service
         {
             return new List<ApiResource>
             {
-                new ApiResource(SupportedApis.ijooz.ToString(), "IJooz API"),
+                new ApiResource(SupportedApis.FvMembership.ToString(), "FvMembership API")
             };
         }
 
         public enum SupportedApis
         {
-            ijooz
-            
+            FvMembership
+        }
+
+        public enum SupportedClients
+        {
+            FvMembershipClientId,
+            FvMembershipThirdPartyClientId
         }
     }
 }

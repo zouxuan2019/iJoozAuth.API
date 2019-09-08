@@ -2,12 +2,15 @@
 using System.Security.Cryptography.X509Certificates;
 using iJoozAuth.API.Service;
 using iJoozAuth.API.UserServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace iJoozAuth.API
 {
@@ -42,7 +45,7 @@ namespace iJoozAuth.API
                 iis.AutomaticAuthentication = false;
             });
         }
-
+        
         private X509Certificate2 GetSigningCredential()
         {
             byte[] signingKey = Convert.FromBase64String(Environment.GetEnvironmentVariable("SigningKey"));

@@ -30,10 +30,11 @@ namespace iJoozAuth.API
             {
                 options.AddPolicy("AllowMyOrigin",
                     builder => builder
-                        .WithOrigins("https://fvmembership-ui.web.app","https://localhost:8100"));
+                        .WithOrigins("https://fvmembership-ui.web.app","https://localhost:8100")
+                        .AllowAnyHeader()
+                    );
                 
             });
-            services.AddCors();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton<FacebookService, FacebookService>();

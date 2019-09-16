@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace iJoozAuth.API.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ExchangeTokenController : ControllerBase
     {
         private readonly FacebookService _facebookService;

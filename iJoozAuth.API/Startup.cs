@@ -26,6 +26,15 @@ namespace iJoozAuth.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowMyOrigin",
+                    builder => builder
+                        .WithOrigins("https://fvmembership-ui.web.app","https://localhost:8100"));
+                
+            });
+            services.AddCors();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton<FacebookService, FacebookService>();
             services.AddSingleton<JwtTokenGenerator, JwtTokenGenerator>();
@@ -35,6 +44,8 @@ namespace iJoozAuth.API
                 .AddInMemoryClients(Config.GetClients())
                 .AddInMemoryApiResources(Config.GetApis())
                 .AddCustomUserStore();
+            
+           
         }
 
         private X509Certificate2 GetSigningCredential()
@@ -48,6 +59,8 @@ namespace iJoozAuth.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            app.UseCors("AllowMyOrigin");
+            
             loggerFactory.AddLog4Net();
             app.UseIdentityServer();
             if (env.IsDevelopment())

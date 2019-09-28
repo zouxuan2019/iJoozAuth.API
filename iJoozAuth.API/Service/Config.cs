@@ -23,12 +23,15 @@ namespace iJoozAuth.API.Service
                         SupportedApis.FvMembership.ToString()
                     
                     }
+                   
+                    
                 },
                 new Client
                 {
                     ClientId = SupportedClients.FvMembershipThirdPartyClientId.ToString(),
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AccessTokenType = AccessTokenType.Jwt,
+                    AllowOfflineAccess = true,
                     ClientSecrets = new List<Secret> {new Secret("FvMembershipThirdPartyClientSecret".Sha256())},
                     AllowedScopes =
                     {
@@ -49,7 +52,7 @@ namespace iJoozAuth.API.Service
             };
         }
 
-        public static IEnumerable<ApiResource> GetApis()
+        public static IEnumerable<ApiResource> GetApiResources()
         {
             return new List<ApiResource>
             {

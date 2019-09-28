@@ -25,7 +25,6 @@ namespace iJoozAuth.API.Service
             var issuer = GetHostUri();
             var token = _identityServerTools.IssueJwtAsync(
                 (int) userInfo.expires_at,
-                issuer,
                 GetClaims(userInfo, issuer)
             ).GetAwaiter().GetResult();
             return token;

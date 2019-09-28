@@ -15,7 +15,7 @@ Content-Type: application/json
 
 ### Password grant type
 
-POST https://localhost:5001/connect/token
+POST https://localhost:7001/connect/token
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=password&client_id=FvMembershipClientId&client_secret=FvMembershipClientSecret&scope=FvMembership&username=zouxuan&password=abc&ABC12
@@ -33,7 +33,7 @@ grant_type=password&client_id=FvMembershipClientId&client_secret=FvMembershipCli
 POST https://localhost:7001/connect/token
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=refresh_token&client_id=FvMembershipClientId&client_secret=FvMembershipClientSecret&refresh_token=1e2696524b51d3de026995246a9cd56ccf43f60ccee3aad13fa2d3a9f56cebc9
+grant_type=refresh_token&client_id=FvMembershipClientId&client_secret=FvMembershipClientSecret&refresh_token=569884cb0d833ef3daaa6b58b867e21222ac4b6f3735ebab65c9d22150836a48
 
 
 
@@ -71,7 +71,8 @@ Accept: application/json
 
 ###
 
-POST https://localhost:7001/ExchangeToken/jwt
+###POST https://fvmembership-auth.appspot.com/ExchangeToken/jwt
+POST https://localhost:8100/proxy/auth/ExchangeToken/jwt
 Content-Type: application/json
 
 {

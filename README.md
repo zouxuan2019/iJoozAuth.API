@@ -13,6 +13,7 @@ openssl pkcs12 -export -out ijooz.pfx -inkey ijooz.key -in ijooz.crt -certfile i
 ##Deploy to google cloud
 
 Refer to https://codelabs.developers.google.com/codelabs/cloud-app-engine-aspnetcore/#1
+
 0. Install gcloud cli
 1. dotnet publish -c Release
 2. cd to publish folder, copy app.yaml to this folder

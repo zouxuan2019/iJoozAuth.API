@@ -50,7 +50,7 @@ namespace iJoozAuth.API
 
         private void IdentityServer4Setup(IServiceCollection services, string migrationsAssembly)
         {
-            var connectionString = "server=35.247.134.164;database=authdb;user=root;password=Password123";
+            var connectionString = Configuration["ConnectionStrings:AuthDb"];
             services.AddIdentityServer()
                 .AddSigningCredential(GetSigningCredential())
                 .AddConfigurationStore(options =>

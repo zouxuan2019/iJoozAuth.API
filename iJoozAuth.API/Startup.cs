@@ -31,8 +31,6 @@ namespace iJoozAuth.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
-            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowMyOrigin",
@@ -45,11 +43,29 @@ namespace iJoozAuth.API
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddSingleton<FacebookService, FacebookService>();
             services.AddSingleton<JwtTokenGenerator, JwtTokenGenerator>();
-            IdentityServer4Setup(services, migrationsAssembly);
+            if (Configuration["AuthConfigLocation"] == "InMemory")
+            {
+                IdentityServer4InMemorySetup(services);
+            }
+            else
+            {
+                IdentityServer4DbSetup(services);
+            }
         }
 
-        private void IdentityServer4Setup(IServiceCollection services, string migrationsAssembly)
+        private void IdentityServer4InMemorySetup(IServiceCollection services)
         {
+            services.AddIdentityServer()
+                .AddSigningCredential(GetSigningCredential())
+                .AddInMemoryIdentityResources(Config.GetIdentityResources())
+                .AddInMemoryClients(Config.GetClients())
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddCustomUserStore();
+        }
+
+        private void IdentityServer4DbSetup(IServiceCollection services)
+        {
+            var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             var connectionString = Configuration["ConnectionStrings:AuthDb"];
             services.AddIdentityServer()
                 .AddSigningCredential(GetSigningCredential())
@@ -84,7 +100,11 @@ namespace iJoozAuth.API
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             app.UseCors("AllowMyOrigin");
-            InitializeDatabase(app);
+            if (Configuration["AuthConfigLocation"] != "InMemory")
+            {
+                InitializeDatabase(app);
+            }
+
             loggerFactory.AddLog4Net();
             app.UseIdentityServer();
             if (env.IsDevelopment())

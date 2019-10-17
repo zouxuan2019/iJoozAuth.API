@@ -87,5 +87,28 @@ namespace iJoozAuth.API.Service
                 return null;
             }
         }
+
+        public string RefreshFacebookToken(string oldToken)
+        {
+            var host = _configuration["Facebook:Host"];
+            var clientId = _configuration["Facebook:AppId"];
+            var clientSecret = _configuration["Facebook:ClientSecret"];
+            var url =
+                $"{host}/oauth/access_token?grant_type=fb_exchange_token&client_id={clientId}&client_secret={clientSecret}&fb_exchange_token={oldToken}";
+
+            try
+            {
+                using (var httpClient = new HttpClient())
+                {
+                    var result = httpClient.GetStringAsync(url).GetAwaiter().GetResult();
+                    return JsonConvert.DeserializeObject<FacebookRefreshTokenResponse>(result).access_token;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex);
+                return null;
+            }
+        }
     }
 }

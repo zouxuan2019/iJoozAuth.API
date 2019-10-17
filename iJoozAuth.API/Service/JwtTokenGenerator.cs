@@ -20,11 +20,11 @@ namespace iJoozAuth.API.Service
             _httpcontextaccessor = httpcontextaccessor;
         }
 
-        public string GenerateJwtToken(UserInfo userInfo)
+        public string GenerateJwtToken(UserInfo userInfo, int lifeTime)
         {
             var issuer = GetHostUri();
             var token = _identityServerTools.IssueJwtAsync(
-                (int) userInfo.expires_at,
+                lifeTime,
                 GetClaims(userInfo, issuer)
             ).GetAwaiter().GetResult();
             return token;

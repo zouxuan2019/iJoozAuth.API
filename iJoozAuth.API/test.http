@@ -33,7 +33,7 @@ grant_type=password&client_id=FvMembershipClientId&client_secret=FvMembershipCli
 POST https://localhost:7001/connect/token
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=refresh_token&client_id=FvMembershipClientId&client_secret=FvMembershipClientSecret&refresh_token=c267ce6a82e3e719ad881b1146d6c3e7ebef8ee6aeb88f5d8ec98f6b5d98db17
+grant_type=refresh_token&client_id=FvMembershipClientId&client_secret=FvMembershipClientSecret&refresh_token=47485f35f3ce44c09712937130e8a18fc1e45818e4875a3afc84b9f593129d35
 
 
 ### Revoke refresh Token
@@ -41,7 +41,7 @@ POST https://localhost:7001/connect/revocation
 Content-Type: application/x-www-form-urlencoded
 Authorization: Basic RnZNZW1iZXJzaGlwQ2xpZW50SWQ6RnZNZW1iZXJzaGlwQ2xpZW50U2VjcmV0
 
-token=23e2ebf235762501b5aca5bab64bdacdd82104fe7594099bde52e43e04f9c70d&token_type_hint=refresh_token
+token=47485f35f3ce44c09712937130e8a18fc1e45818e4875a3afc84b9f593129d35&token_type_hint=refresh_token
 
 ### Revoke access Token
 POST https://localhost:7001/connect/revocation
@@ -66,9 +66,10 @@ Content-Type: application/x-www-form-urlencoded
 grant_type=client_credentials&client_id=FvMembershipThirdPartyClientId&client_secret=FvMembershipThirdPartyClientSecret&scope=FvMembership
 
 
-# Facebook Test
 
 
+
+### Facebook Test
 GET https://graph.facebook.com/718194675270034?fields=id,name,email&access_token=EAAHPKxjHCQoBAAArOcMEZCkzy9cdwhKhh4XZCaOYpbqhaKyKbAHw0fcc15B0XOtsCMTIGJAt0PikZAw3N7LDBbaJZAM7gAoD68ZByaXns9cIJ2VKBLdbcRRYJeMUFXGYRqVCP66haD1jCjRXTstZCUSVsnM71q8SRRPGHSxZBsVgwZDZD
 Accept: application/json
 
@@ -138,6 +139,23 @@ Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IkRGREFGNTk1MEI5NzQ4NUVDQjM2MD
 }
 
 ###
+
+### Login
+POST https://localhost:7001/Token/login
+Content-Type: application/json
+
+{"userName": "zx",
+  "password": "zzz"
+}
+
+###
+POST https://localhost:7001/Token/refresh
+Content-Type: application/json
+
+{"refresh_token":"8b90d3aca8ba39b349549354b43b41f32bc7dd6820c71267e452c4a7b877ce9c"}
+
+###
+
 
 
 

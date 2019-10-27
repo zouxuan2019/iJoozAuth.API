@@ -1,4 +1,7 @@
 using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using iJoozAuth.API.Models;
 using iJoozAuth.API.Service;
@@ -17,6 +20,18 @@ namespace iJoozAuth.API.Controller
         {
             _facebookService = facebookService;
             _jwtTokenGenerator = jwtTokenGenerator;
+        }
+
+        [HttpGet("basic")]
+        public string Test()
+        {
+            var credentials = string.Format("{0}:{1}", Config.SupportedClients.FvMembershipClientId.ToString(),
+                "FvMembershipClientSecret");
+            var headerValue = Convert.ToBase64String(Encoding.UTF8.GetBytes(credentials));
+            return headerValue;
+
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", headerValue);
         }
 
         [HttpPost("jwt")]
@@ -39,18 +54,19 @@ namespace iJoozAuth.API.Controller
         }
 
         private IActionResult GenerateToken(ExchangeTokenRequest exchangeTokenRequest, string refreshToken)
-        {            var validTokenInfo = GetValidTokenInfo(exchangeTokenRequest);
+        {
+            var validTokenInfo = GetValidTokenInfo(exchangeTokenRequest);
             if (validTokenInfo == null)
             {
                 return Unauthorized("Invalid token");
             }
 
             long unixTime = ((DateTimeOffset) DateTime.UtcNow).ToUnixTimeSeconds();
-            int lifeTime = (int)(validTokenInfo.expires_at - unixTime);
+            int lifeTime = (int) (validTokenInfo.expires_at - unixTime);
             return Ok(new ExchangeTokenResponse
             {
                 expires_in = lifeTime,
-                access_token = _jwtTokenGenerator.GenerateJwtToken(validTokenInfo,lifeTime),
+                access_token = _jwtTokenGenerator.GenerateJwtToken(validTokenInfo, lifeTime),
                 token_type = "Bearer",
                 refresh_token = refreshToken,
                 source = exchangeTokenRequest.Source

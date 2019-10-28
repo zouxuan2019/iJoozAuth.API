@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using iJoozAuth.API.Service;
@@ -13,6 +14,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 
 namespace iJoozAuth.API
 {
@@ -63,22 +65,37 @@ namespace iJoozAuth.API
                 .AddCustomUserStore();
         }
 
+        DbConnection GetDbConnection()
+        {
+            var connectionString = new MySqlConnectionStringBuilder(
+                Configuration["ConnectionStrings:AuthDb"])
+            {
+                // Connecting to a local proxy that does not support ssl.
+                SslMode = MySqlSslMode.None,
+            };
+            DbConnection connection = new MySqlConnection(connectionString.ConnectionString);
+
+            return connection;
+        }
+
         private void IdentityServer4DbSetup(IServiceCollection services)
         {
+            var dbConnection = GetDbConnection();
+
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            var connectionString = Configuration["ConnectionStrings:AuthDb"];
+
             services.AddIdentityServer()
                 .AddSigningCredential(GetSigningCredential())
                 .AddConfigurationStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
-                        builder.UseMySql(connectionString,
+                        builder.UseMySql(dbConnection.ConnectionString,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
                 })
                 .AddOperationalStore(options =>
                 {
                     options.ConfigureDbContext = builder =>
-                        builder.UseMySql(connectionString,
+                        builder.UseMySql(dbConnection.ConnectionString,
                             sql => sql.MigrationsAssembly(migrationsAssembly));
 
                     // this enables automatic token cleanup. this is optional.
@@ -113,6 +130,7 @@ namespace iJoozAuth.API
             }
             else
             {
+//                app.UseGoogleExceptionLogging();
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }

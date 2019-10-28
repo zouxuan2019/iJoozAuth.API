@@ -17,7 +17,7 @@ Refer to https://codelabs.developers.google.com/codelabs/cloud-app-engine-aspnet
 0. Install gcloud cli
 1. dotnet publish -c Release
 2. cd to publish folder, copy app.yaml to this folder
-3. gcloud app deploy
+3. gcloud beta app deploy
 
 
 #Refer to test.http to call different endpoint

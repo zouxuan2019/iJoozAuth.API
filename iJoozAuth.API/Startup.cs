@@ -37,7 +37,7 @@ namespace iJoozAuth.API
             {
                 options.AddPolicy("AllowMyOrigin",
                     builder => builder
-                        .WithOrigins("https://fvmembership-ui.web.app", "https://localhost:8100")
+                        .WithOrigins("https://fvmembership-ui.firebaseapp.com", "https://localhost:8100")
                         .AllowAnyHeader()
                 );
             });

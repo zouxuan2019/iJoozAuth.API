@@ -23,19 +23,21 @@ namespace iJoozAuth.API.Service
             var url = _configuration["UserManagement:Host"] + "/login";
             var userInfo = new {username = context.UserName, password = context.Password};
 
-            using (var client = new HttpClient())
-            {
-                var stringContent =
-                    new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8, "application/json");
-                var httpResponseMessage = client.PostAsync(url, stringContent).GetAwaiter().GetResult();
-                var result = httpResponseMessage.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                var loginResult = JsonConvert.DeserializeObject<LoginResult>(result);
-                if (loginResult.status.Equals("1"))
-                {
-                    context.Result =
-                        new GrantValidationResult(context.UserName, OidcConstants.AuthenticationMethods.Password);
-                }
-            }
+//            using (var client = new HttpClient())
+//            {
+//                var stringContent =
+//                    new StringContent(JsonConvert.SerializeObject(userInfo), Encoding.UTF8, "application/json");
+//                var httpResponseMessage = client.PostAsync(url, stringContent).GetAwaiter().GetResult();
+//                var result = httpResponseMessage.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+//                var loginResult = JsonConvert.DeserializeObject<LoginResult>(result);
+//                if (loginResult.status.Equals("1"))
+//                {
+//                    context.Result =
+//                        new GrantValidationResult(context.UserName, OidcConstants.AuthenticationMethods.Password);
+//                }
+//            }
+            context.Result =
+                new GrantValidationResult(context.UserName, OidcConstants.AuthenticationMethods.Password);
 
             return Task.FromResult(0);
         }

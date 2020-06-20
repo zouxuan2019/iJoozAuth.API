@@ -1,0 +1,78 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+
+
+###
+
+
+### Password
+
+POST http://localhost:7000/connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=FvMembershipClientId&client_secret=FvMembershipClientSecret&scope=offline_access FvMembership&username=zouxuan&password=abc&ABC12
+
+
+### Client_credential
+
+POST http://localhost:7000/connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=FvMembershipThirdPartyClientId&client_secret=FvMembershipThirdPartyClientSecret&scope=FvMembership
+
+
+###
+
+### Refresh Token
+
+POST http://localhost:7000/connect/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=refresh_token&refresh_token=92ecef045a0585401ea3663728ba316d14668aaba07eff9e0e251dda1b1c6d2b&client_id=FvMembershipClientId&client_secret=FvMembershipClientSecret
+
+
+### Revoke refresh Token
+POST http://localhost:7000/connect/revocation
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic RnZNZW1iZXJzaGlwQ2xpZW50SWQ6RnZNZW1iZXJzaGlwQ2xpZW50U2VjcmV0
+
+token=6433b3458874a2f5c032d83507a6782c090f96d98bef5555075625cc8cf22d44&token_type_hint=refresh_token
+
+### introspect
+
+POST https://localhost:7001/connect/introspect
+Authorization: Basic RnZNZW1iZXJzaGlwQ2xpZW50SWQ6RnZNZW1iZXJzaGlwQ2xpZW50U2VjcmV0
+Accept: application/json
+Content-Type: application/x-www-form-urlencoded
+token=eyJhbGciOiJSUzI1NiIsImtpZCI6IkRGREFGNTk1MEI5NzQ4NUVDQjM2MDM0RjNCNzM0OUFBQTI5Qzk2MEYiLCJ0eXAiOiJKV1QiLCJ4NXQiOiIzOXIxbFF1WFNGN0xOZ05QTzNOSnFxS2NsZzgifQ.eyJuYmYiOjE1Njc5MzQyMDMsImV4cCI6MzE0MDYzOTIzNiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzAwMSIsImF1ZCI6IkZ2TWVtYmVyc2hpcCIsImNsaWVudF9pZCI6IkZ2TWVtYmVyc2hpcENsaWVudElkIiwic3ViIjoiWHVhbiBab3UiLCJhdXRoX3RpbWUiOiIxNTY3OTM0MjAzIiwiaWRwIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzAwMSIsImVtYWlsIjoieHVhbnpvdTg5QGdtYWlsLmNvbSIsInNjb3BlIjpbImVtYWlsIiwicHVibGljX3Byb2ZpbGUiLCJGdk1lbWJlcnNoaXAiXSwiYW1yIjpbImNsaWVudF9jcmVkZW50aWFscyJdfQ.D_DV_aEcFIc48OH-LXVYCYZA2Ze47ANUtWJoyH0O09UL7ZrCTjJQSQxy7PZ6BGbhI7lwZ3RqXWUv8ZhiEYLchmEXOBn3jZtkMx6l7SKObeQAbcyMABmeHZ_HZI1lPR8ORmMTmCRiyKm8KFmY7jj1Hp-Gx2oCas5z8u4AAKgj-wfKmg46FXpJ8YF322piWJz-BQGWX9GdOz31F7XGjnaCsv5tRktkePfeKxI-l2N_vQQFnM8QijTwmhF8iqFs3r7EAAFcH5FX31-wS8qRZ4Gp7ZAEuT1BfKaDu7YRrHfMZLNmj8iGZEBl2mQZOeFTSB0Y8KxFjKVHHEsIyTlGY5nOm32Rp_ancOg68iXPoHICZjEzoVpozn348ZplTilmM23Ta4SVBlGkkwwO5jF3CTieYQ6j_5Y-5r7Qat9YEr9jnxLhz97yZtccieQibQ3E3TiICF3KMmu32G52QIZVEkZaNrMcnYjaJJn8TYtGK6ImwUOdzfkfrmq4ubJ6YDXQWYxOke17RsbE-I5t285Dvl0EvYjyXZMPnRtCHTF3TH_Ql5R0oEemc9BpEiuafWrO3j9CIbyBfmih_AOgtaHPY-m6FeteJUTj8s0_4aVXAUt9fjVGksMBiO3mSYj4ot7WWdRoZJg8TdmHkyi49M7uziIjodT6qtCCThLqtVRES8U0cGk
+
+
+
+###############Customized#############################
+### Login
+POST http://localhost:7000/Token/login
+Content-Type: application/json
+
+{"userName": "zx",
+  "password": "zzz"
+}
+
+###
+POST http://localhost:7000/Token/refresh
+Content-Type: application/json
+
+{"refresh_token":"8b90d3aca8ba39b349549354b43b41f32bc7dd6820c71267e452c4a7b877ce9c"}
+
+#######################################################
+
+
+
+
+
+
+
